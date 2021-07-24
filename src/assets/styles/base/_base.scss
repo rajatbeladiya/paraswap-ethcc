@@ -1,0 +1,27 @@
+html {
+  height: 100%;
+  margin-right: calc(100vw - 100%);
+  font-size: 18px;
+  body {
+    // font-family: $content-font-family;
+    margin: 0;
+    padding: 0;
+    // color: $text-color-800;
+    height: 100vh;
+    overflow: hidden;
+    #root {
+      height: 100%;
+      .App {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}

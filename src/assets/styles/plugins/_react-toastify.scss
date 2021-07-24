@@ -1,0 +1,181 @@
+.Toastify__toast-container {
+  width: 350px;
+  .Toastify__toast {
+    margin-bottom: $standard-margin;
+    border-radius: 5px;
+    .Toastify__toast-body {
+      padding: 0 $standard-padding * 4;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.9rem;
+      white-space: pre-line;
+    }
+  }
+  & .Toastify__toast--success {
+    background: rgb(205, 232, 218);
+    color: rgb(0, 102, 68);
+    border-radius: 5px;
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 10%;
+      left: 0;
+      top: 0;
+      background-color: rgb(54, 179, 126);
+    }
+    &:after {
+      content: url("../../icons/success.svg");
+      position: absolute;
+      display: block;
+      height: 100%;
+      left: 0;
+      top: 0;
+      color: white;
+      opacity: 0.9;
+      transform: scale(0.03) translate(-1550%, -1000%);
+    }
+    .Toastify__close-button--success {
+      color: rgb(0, 102, 68);
+      text-indent: -9000px;
+      position: relative;
+      &:after {
+        content: '✕';
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        text-indent: initial;
+      }
+    }
+  }
+  & .Toastify__toast--error {
+    background: rgb(255, 235, 230);
+    color: rgb(191, 38, 0);;
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 10%;
+      left: 0;
+      top: 0;
+      background-color: rgb(255, 86, 48);
+    }
+    &:after {
+      content: url("../../icons/error.svg");
+      position: absolute;
+      display: block;
+      height: 100%;
+      left: 0;
+      top: 0;
+      color: white;
+      opacity: 0.9;
+      transform: scale(0.03) translate(-1550%, -1200%);
+    }
+    .Toastify__close-button--error {
+      color: rgb(191, 38, 0);;
+      text-indent: -9000px;
+      position: relative;
+      &:after {
+        content: '✕';
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        text-indent: initial;
+      }
+    }
+  }
+  & .Toastify__toast--warning {
+    background: rgb(255, 250, 230);
+    color: rgb(255, 139, 0);
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 10%;
+      left: 0;
+      top: 0;
+      background-color: rgb(255, 171, 0);
+    }
+    &:after {
+      content: url("../../icons/warning.svg");
+      position: absolute;
+      display: block;
+      height: 100%;
+      left: 0;
+      top: 0;
+      color: white;
+      opacity: 0.9;
+      transform: scale(0.03) translate(-1550%, -1000%);
+    }
+    .Toastify__close-button--warning {
+      color: rgb(255, 139, 0);
+      background-color: rgb(255, 250, 230);
+      text-indent: -9000px;
+      position: relative;
+      &:after {
+        content: '✕';
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        text-indent: initial;
+      }
+    }
+  }
+  & .Toastify__toast--info {
+    background: white;
+    color: rgb(80, 95, 121);
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 10%;
+      left: 0;
+      top: 0;
+      background-color: rgb(38, 132, 255);
+    }
+    &:after {
+      content: url("../../icons/info.svg");
+      position: absolute;
+      display: block;
+      height: 100%;
+      left: 0;
+      top: 0;
+      color: white;
+      opacity: 0.9;
+      transform: scale(0.03) translate(-1550%, -1000%);
+    }
+    .Toastify__close-button--info {
+      color: rgb(80, 95, 121);
+      background-color: white;
+      text-indent: -9000px;
+      position: relative;
+      &:after {
+        content: '✕';
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        text-indent: initial;
+      }
+    }
+  }
+  & .Toastify__toast--default {
+    border-radius: 5px;
+    border: 1px solid $border-color-400;
+    min-width: 500px;
+    padding: 0;
+    .Toastify__toast-body {
+      padding: 0;
+    }
+    .Toastify__close-button--default {
+      text-indent: -9000px;
+      position: relative;
+      &:after {
+        content: '✕';
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        text-indent: initial;
+      }
+    }
+  }
+}

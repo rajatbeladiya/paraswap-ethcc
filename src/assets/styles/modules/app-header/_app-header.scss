@@ -1,0 +1,12 @@
+.app-header-container {
+  height: 70px;
+  .app-name {
+    font-size: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-bottom: lightgrey 1px solid;
+    padding-left: 20px;
+  }
+}
