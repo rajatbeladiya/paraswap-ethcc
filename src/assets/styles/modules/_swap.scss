@@ -41,6 +41,20 @@
           }
         }
       }
+      .to-content {
+        .block-ui {
+          .block-ui-container {
+            .block-ui-message-container {
+              .block-ui-message {
+                .spinner {
+                  height: 30px;
+                  width: 30px;
+                }
+              }
+            }
+          }
+        }
+      }
       .middle-content {
         width: 80px !important;
         align-self: flex-end;

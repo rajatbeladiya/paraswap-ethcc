@@ -5,15 +5,27 @@ const INITIAL_STATE = {
   priceRoute: {},
   tokens: [],
   tokenList: [],
+  token1Loading: false,
 };
 
 
 export default (state = INITIAL_STATE, action) => { // eslint-disable-line
   switch (action.type) {
+    case actionTypes.GET_PRICE_ROUTE_LOADING:
+      return {
+        ...state,
+        token1Loading: true,
+      };
     case actionTypes.GET_PRICE_ROUTE_SUCCESS:
       return {
         ...state,
         priceRoute: action.payload && action.payload.data && action.payload.data.priceRoute,
+        token1Loading: false,
+      };
+    case actionTypes.GET_PRICE_ROUTE_ERROR:
+      return {
+        ...state,
+        token1Loading: false,
       };
     case actionTypes.GET_TOKEN_LIST_SUCCESS:
       return {

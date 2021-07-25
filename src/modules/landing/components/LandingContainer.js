@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import Landing from './Landing';
 import * as landingActions from '../redux/actions';
 import { noop, getWeb3, getERCContractInstance } from '../../../utils';
+import { showNotification } from '../../../utils/Notifications';
 import { BASE_URL } from '../../../config';
 import axios from 'axios';
 
 const BN = require('bignumber.js');
+
 class LandingContainer extends Component {
 
   state = {
@@ -20,15 +22,13 @@ class LandingContainer extends Component {
     side: 'SELL',
     networkId: 1,
     slippage: 1,
-    networks: {
-      MAINNET: 1,
-    },
     web3: '',
     account: '',
     NULL_ADDRESS: '0x0000000000000000000000000000000000000000',
     referrer: 'paraswap-swap',
     spenderAddress: '0xb70Bc06D2c9Bf03b3373799606dc7d39346c06B3',
-    MAX_ALLOWANCE: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
+    MAX_ALLOWANCE: '123123442345235562344256956453452345745678845678896456039457584007913129639935',
+    loading: false,
 
   }
 
@@ -73,7 +73,6 @@ class LandingContainer extends Component {
 
   convert = async () => {
     const { token0, token1, networkId, side } = this.state;
-
     const data = {
       from: token0.address,
       to: token1.address,
@@ -104,6 +103,7 @@ class LandingContainer extends Component {
   }
 
   paraswapTrade = async () => {
+    this.setState({ loading: true });
     const { token0, token1, slippage, MAX_ALLOWANCE } = this.state;
     const { priceRoute } = this.props;
 
@@ -112,7 +112,6 @@ class LandingContainer extends Component {
     if (allowance < (new BN(this.state.addQty).times(10 ** token0.decimals))) {
       await ercContract.methods.approve(this.state.spenderAddress, MAX_ALLOWANCE).send({ from: this.state.account });
     }
-    console.log('allowance======', allowance);
 
     const srcAmount = new BN(this.state.addQty).times(10 ** token0.decimals).toFixed(0);
 
@@ -120,14 +119,15 @@ class LandingContainer extends Component {
 
     const transaction = await this.buildSwap(token0, token1, srcAmount, minAmount, priceRoute);
 
-    console.log('transaction====', transaction);
-
     this.state.web3.eth.sendTransaction(
       transaction,
       async (err, transactionHash) => {
         if (err) {
+          showNotification('Something went wrong. Please try again later!', 'success', 5000);
           return this.setState({ error: err.toString(), loading: false });
         }
+        this.setState({ loading: false });
+        showNotification('Swap Successfull!', 'success', 5000);
         console.log('transactionHash=========', transactionHash);
       },
     );
@@ -157,8 +157,8 @@ class LandingContainer extends Component {
   }
 
   render() {
-    const { priceRoute, tokens, tokenList } = this.props;
-    const { token0, token1, firstToken, secondToken } = this.state;
+    const { priceRoute, tokens, tokenList, token1Loading } = this.props;
+    const { token0, token1, firstToken, secondToken, slippage, loading } = this.state;
     return (
       <Landing
         priceRoute={priceRoute}
@@ -175,6 +175,9 @@ class LandingContainer extends Component {
         convert={this.convert}
         addQty={this.state.addQty}
         paraswapTrade={this.paraswapTrade}
+        token1Loading={token1Loading}
+        slippage={slippage}
+        loading={loading}
       />
     );
   }
@@ -186,6 +189,8 @@ LandingContainer.propTypes = {
   getTokenList: PropTypes.func,
   setTokenList: PropTypes.func,
   tokens: PropTypes.instanceOf(Array),
+  loading: PropTypes.bool,
+  token1Loading: PropTypes.bool,
 };
 
 LandingContainer.defaultProps = {
@@ -194,12 +199,16 @@ LandingContainer.defaultProps = {
   getTokenList: noop,
   setTokenList: noop,
   tokens: [],
+  loading: false,
+  token1Loading: false,
 };
 
 const mapStateToProps = state => ({
   priceRoute: state.landing.priceRoute,
   tokens: state.landing.tokens,
   tokenList: state.landing.tokenList,
+  loading: state.landing.loading,
+  token1Loading: state.landing.token1Loading,
 });
 
 const mapDispatchToProps = dispatch => ({
