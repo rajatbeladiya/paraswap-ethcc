@@ -17,4 +17,9 @@ export const setTokenList = (data) => ({
   payload: data,
 });
 
+export const setAccountAddress = (account) => ({
+  type: actionTypes.SET_ACCOUNT_ADDRESS,
+  payload: account,
+});
+
 

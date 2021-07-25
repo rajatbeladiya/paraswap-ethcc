@@ -33,12 +33,13 @@ class LandingContainer extends Component {
   }
 
   async componentDidMount() {
+    this.props.getTokenList(this.state.networkId);
     await window.ethereum.enable();
     const web3 = await getWeb3();
     this.setState({ web3 });
     const [account] = await web3.eth.getAccounts();
-    this.setState({ account })
-    this.props.getTokenList(this.state.networkId);
+    this.setState({ account });
+    this.props.setAccountAddress(account);
     
   }
 
@@ -191,6 +192,7 @@ LandingContainer.propTypes = {
   tokens: PropTypes.instanceOf(Array),
   loading: PropTypes.bool,
   token1Loading: PropTypes.bool,
+  setAccountAddress: PropTypes.func,
 };
 
 LandingContainer.defaultProps = {
@@ -201,6 +203,7 @@ LandingContainer.defaultProps = {
   tokens: [],
   loading: false,
   token1Loading: false,
+  setAccountAddress: noop,
 };
 
 const mapStateToProps = state => ({
@@ -215,6 +218,7 @@ const mapDispatchToProps = dispatch => ({
   getPriceRoute: data => dispatch(landingActions.getPriceRoute(data)),
   getTokenList: networkId => dispatch(landingActions.getTokenList(networkId)),
   setTokenList: data => dispatch(landingActions.setTokenList(data)),
+  setAccountAddress: account => dispatch(landingActions.setAccountAddress(account)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingContainer);

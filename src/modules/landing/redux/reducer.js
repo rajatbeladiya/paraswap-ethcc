@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 
 const INITIAL_STATE = {
   loading: false,
+  account: '',
   priceRoute: {},
   tokens: [],
   tokenList: [],
@@ -36,6 +37,11 @@ export default (state = INITIAL_STATE, action) => { // eslint-disable-line
       return {
         ...state,
         tokenList: action.payload,
+      };
+    case actionTypes.SET_ACCOUNT_ADDRESS:
+      return {
+        ...state,
+        account: action.payload,
       };
     default:
       return state;

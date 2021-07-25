@@ -1,12 +1,19 @@
 .app-header-container {
   height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: lightgrey 1px solid;
+  padding: 0 20px;
   .app-name {
     font-size: 20px;
     font-weight: 900;
     display: flex;
     align-items: center;
     height: 100%;
-    border-bottom: lightgrey 1px solid;
-    padding-left: 20px;
+    // padding-left: 20px;
   }
+  .metamask-address {
+    font-weight: bold;
+  } 
 }
